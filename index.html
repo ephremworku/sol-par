@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intro Video</title>
+    <title>Solider-Partners</title>
     <style>
         * {
             margin: 0;
@@ -19,18 +19,87 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+        }
+
+        /* Mobile optimizations - fit entire video in screen */
+        @media screen and (max-width: 768px) {
+            body {
+                /* Prevent scrolling on mobile */
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+            
+            video {
+                /* Show entire video on mobile without cropping */
+                object-fit: contain;
+                object-position: center;
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+
+        /* Tablet and small desktop */
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            video {
+                object-fit: contain;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        /* Large desktop screens */
+        @media screen and (min-width: 1025px) {
+            video {
+                object-fit: contain;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        /* Portrait orientation on mobile - fit video completely */
+        @media screen and (max-width: 768px) and (orientation: portrait) {
+            video {
+                object-fit: contain;
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+
+        /* Landscape orientation on mobile - fit video completely */
+        @media screen and (max-width: 768px) and (orientation: landscape) {
+            video {
+                object-fit: contain;
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+
+        /* Very small screens - ensure video fits completely */
+        @media screen and (max-width: 480px) {
+            body {
+                position: fixed;
+                overflow: hidden;
+            }
+            
+            video {
+                object-fit: contain;
+                width: 100vw;
+                height: 100vh;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Replace 'your-video.mp4' with your actual video filename -->
-    <video autoplay muted preload="metadata">
+    <video autoplay muted preload="metadata" playsinline>
         <source src="soledar-partners.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -43,6 +112,20 @@
             // Keep the final frame visible by not hiding or resetting the video
             video.controls = false;
         });
+
+        // Handle orientation changes on mobile
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                // Force video to recalculate size after orientation change
+                video.style.height = '100vh';
+                video.style.width = '100vw';
+            }, 100);
+        });
+
+        // Prevent scrolling on mobile devices
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
 
         // Optional: Remove the muted attribute if you want audio
         // video.muted = false;
