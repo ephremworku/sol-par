@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro Video</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Replace 'your-video.mp4' with your actual video filename -->
+    <video autoplay muted preload="metadata">
+        <source src="soledar-partners.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        const video = document.querySelector('video');
+        
+        // Ensure the video plays only once and shows the final frame
+        video.addEventListener('ended', function() {
+            // Keep the final frame visible by not hiding or resetting the video
+            video.controls = false;
+        });
+
+        // Optional: Remove the muted attribute if you want audio
+        // video.muted = false;
+    </script>
+</body>
+</html>
